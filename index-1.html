@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do You Love Kelvin Mwenda? 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #c0394b; --deep: #7a1525; --blush: #fdeef0;
+    --cream: #fffaf8; --gold: #c9952a; --text: #1a0608; --muted: #9a7a80;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { min-height:100vh; background:var(--cream); font-family:'DM Sans',sans-serif; display:flex; align-items:center; justify-content:center; padding:20px; overflow-x:hidden; }
+  body::before { content:''; position:fixed; width:600px; height:600px; background:radial-gradient(circle,#f9c0ca28,transparent 70%); top:-200px; left:-200px; border-radius:50%; pointer-events:none; z-index:0; animation:o1 14s ease-in-out infinite; }
+  body::after { content:''; position:fixed; width:500px; height:500px; background:radial-gradient(circle,#c0394b14,transparent 70%); bottom:-150px; right:-150px; border-radius:50%; pointer-events:none; z-index:0; animation:o2 17s ease-in-out infinite; }
+  @keyframes o1{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,20px)}}
+  @keyframes o2{0%,100%{transform:translate(0,0)}50%{transform:translate(-25px,-25px)}}
+  .petal{position:fixed;width:10px;height:14px;background:radial-gradient(ellipse at 40% 30%,#f9c0ca,#c0394b55);border-radius:50% 10% 50% 10%;animation:pf linear infinite;pointer-events:none;z-index:0;}
+  @keyframes pf{0%{transform:translateY(-20px) rotate(0deg);opacity:.8}100%{transform:translateY(110vh) rotate(400deg);opacity:0}}
+  .flower{position:fixed;font-size:22px;animation:ff linear infinite;pointer-events:none;z-index:2;}
+  @keyframes ff{0%{transform:translateY(-30px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
+  .wrapper{width:100%;max-width:560px;position:relative;z-index:10;}
+  .card{background:white;border-radius:24px;padding:44px 40px;box-shadow:0 20px 70px rgba(192,57,75,.1),0 4px 20px rgba(0,0,0,.05);animation:cardIn .55s cubic-bezier(.175,.885,.32,1.275) both;}
+  @keyframes cardIn{from{transform:scale(.88) translateY(24px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+  .trail{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:20px;min-height:18px;}
+  .trail-dot{width:8px;height:8px;border-radius:50%;background:#f0d8db;transition:background .3s;}
+  .trail-dot.done{background:var(--rose);}
+  .trail-dot.current{background:var(--gold);transform:scale(1.35);}
+  .step-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:10px;}
+  .divider{width:50px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 0 20px;}
+  .q-text{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:26px;}
+  .q-text em{color:var(--rose);font-style:italic;}
+  .choices{display:flex;flex-direction:column;gap:10px;}
+  .choice{display:flex;align-items:center;gap:13px;background:var(--blush);border:2px solid transparent;border-radius:14px;padding:13px 17px;cursor:pointer;font-size:.91rem;color:var(--text);transition:all .22s ease;text-align:left;font-family:'DM Sans',sans-serif;}
+  .choice:hover{background:#f5d4d8;border-color:var(--rose);transform:translateX(5px);}
+  .choice-letter{min-width:28px;height:28px;border-radius:50%;background:white;border:1.5px solid #e0c0c5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--rose);}
+  /* RESULT */
+  .result-wrap{text-align:center;}
+  .result-emoji{font-size:60px;display:block;margin-bottom:14px;animation:pop .6s cubic-bezier(.175,.885,.32,1.275) both;}
+  @keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+  .result-title{font-family:'Cormorant Garamond',serif;font-size:2.3rem;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:8px;}
+  .result-title em{color:var(--rose);font-style:italic;}
+  .steps-count{font-size:.82rem;color:var(--muted);margin:10px 0;letter-spacing:.5px;}
+  .result-msg{color:var(--muted);font-size:.93rem;line-height:1.75;margin:14px auto 18px;max-width:400px;}
+  .photo-frame{position:relative;margin:22px auto;width:100%;max-width:340px;border-radius:20px;overflow:hidden;box-shadow:0 12px 50px rgba(192,57,75,.25);animation:photoIn .8s .3s cubic-bezier(.175,.885,.32,1.275) both;}
+  @keyframes photoIn{from{transform:scale(.7) rotate(-3deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+  .photo-frame img{width:100%;display:block;}
+  .photo-caption{background:linear-gradient(135deg,var(--rose),var(--deep));color:white;padding:12px 20px;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;letter-spacing:.5px;}
+  .emoji-row{font-size:28px;margin:16px 0;letter-spacing:8px;animation:fadeUp .6s .6s both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .result-quote{background:var(--blush);border-radius:14px;padding:18px 22px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--deep);line-height:1.65;margin:18px 0;}
+  .btn-retry{background:transparent;border:2px solid var(--rose);color:var(--rose);padding:12px 36px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:1rem;cursor:pointer;transition:all .2s;margin-top:4px;}
+  .btn-retry:hover{background:var(--blush);}
+  .conf{position:fixed;opacity:0;animation:cf 3.5s ease-in forwards;pointer-events:none;z-index:999;border-radius:3px;}
+  @keyframes cf{0%{transform:translateY(-50px) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+  @media(max-width:480px){.card{padding:28px 20px;}.q-text{font-size:1.35rem;}.result-title{font-size:1.9rem;}}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="card" id="card">
+    <div class="trail" id="trail"></div>
+    <p class="step-tag" id="stepTag">Start Here 💌</p>
+    <div class="divider"></div>
+    <p class="q-text" id="qText"></p>
+    <div class="choices" id="choices"></div>
+  </div>
+</div>
+<script>
+const PHOTO = "./photo.jpg";
+
+const nodes = {
+  start:{q:"Do you love <em>Kelvin Mwenda?</em> 💕",c:[
+    {t:"Yes, obviously 💖",n:"result"},
+    {t:"No 🙄",n:"A1"},
+    {t:"I don't know 😶",n:"A2"},
+    {t:"Why are you asking me this 😂",n:"A3"},
+    {t:"Define 'love' first 🤓",n:"A4"}
+  ]},
+
+  // PATH A - Said No
+  A1:{q:"No? Interesting. How do you sleep at night lying to yourself? 😂",c:[
+    {t:"Very well actually 😤",n:"B1"},
+    {t:"...not great if I'm honest",n:"B2"},
+    {t:"I toss and turn a little 😭",n:"C1"},
+    {t:"I think about him before sleeping okay?! 💀",n:"E1"}
+  ]},
+  B1:{q:"Very well? So you don't have dreams about a certain someone? 👀",c:[
+    {t:"Zero dreams. Clean sleep.",n:"C2"},
+    {t:"Maybe one dream. Unrelated.",n:"C1"},
+    {t:"I'm not answering that 😶‍🌫️",n:"D1"},
+    {t:"OKAY FINE I dream about him 😭",n:"E1"}
+  ]},
+  B2:{q:"You don't sleep well. What keeps you up? 🌙",c:[
+    {t:"Stress. School. Life.",n:"C2"},
+    {t:"Random thoughts, nothing specific",n:"C1"},
+    {t:"A very specific face I won't name",n:"D2"},
+    {t:"Kelvin. It's Kelvin. Happy now?! 😭",n:"E1"}
+  ]},
+  C1:{q:"Something is keeping you up. Is it his laugh? His voice? His smile? 😏",c:[
+    {t:"None of those things",n:"D3"},
+    {t:"Maybe the smile, hypothetically",n:"D2"},
+    {t:"All three. At the same time. 💀",n:"E1"},
+    {t:"I hate this quiz so much 😭",n:"D1"}
+  ]},
+  C2:{q:"Clean sleep, no feelings, no dreams. But do you check your phone hoping it's him?",c:[
+    {t:"Never. My phone is just a phone.",n:"D3"},
+    {t:"Sometimes, maybe",n:"D2"},
+    {t:"My lockscreen is his contact. Don't ask.",n:"E1"},
+    {t:"I check and then put it down dramatically 😂",n:"D2"}
+  ]},
+  D1:{q:"You're not answering. The silence is VERY loud, Evalyn 😂",c:[
+    {t:"I just value my privacy!",n:"E2"},
+    {t:"Fine, there's something",n:"E1"},
+    {t:"FINE. I LOVE HIM. You happy?!",n:"result"},
+    {t:"This quiz is rigged 🙄",n:"E3"}
+  ]},
+  D2:{q:"Hypothetically — if he held your hand right now, you'd feel...?",c:[
+    {t:"Nothing. Just warmth. Normal warmth.",n:"E2"},
+    {t:"Butterflies. Just tiny ones.",n:"E1"},
+    {t:"My whole world stopping 🥺",n:"result"},
+    {t:"I need a moment to process that question 😶",n:"E3"}
+  ]},
+  D3:{q:"Wow, zero feelings. Quick: what's his favourite thing to do?",c:[
+    {t:"I don't know, why would I know?",n:"E2"},
+    {t:"I might know one or two things",n:"E1"},
+    {t:"I know everything about him 😭",n:"result"},
+    {t:"...I accidentally memorised his whole life. Oops.",n:"result"}
+  ]},
+  E1:{q:"So something IS there. Let's name it. Pick the closest one 💕",c:[
+    {t:"A very strong friendship",n:"F1"},
+    {t:"Feelings I'm still processing",n:"F2"},
+    {t:"Feelings I've processed and ignored",n:"F2"},
+    {t:"Love. We're calling it love.",n:"result"}
+  ]},
+  E2:{q:"You keep saying nothing. But you smiled reading his name up there didn't you 👆😏",c:[
+    {t:"I did NOT smile",n:"F1"},
+    {t:"My face just does that sometimes 🙄",n:"F1"},
+    {t:"Okay ONE small smile",n:"F2"},
+    {t:"I grinned. Widely. 😭",n:"result"}
+  ]},
+  E3:{q:"Rigged? Every road you chose brought you here. That's not rigging — that's your heart 💗",c:[
+    {t:"My heart needs to mind its business",n:"F1"},
+    {t:"My heart is annoyingly accurate",n:"F2"},
+    {t:"My heart said YES from question one 😭",n:"result"}
+  ]},
+
+  // PATH B - I don't know
+  A2:{q:"You don't know? How long have you been 'not knowing'? 🤔",c:[
+    {t:"Not long, this is new",n:"B3"},
+    {t:"A few months honestly",n:"B4"},
+    {t:"Way too long to admit 😅",n:"C3"},
+    {t:"Since the first time I saw him 🫣",n:"E1"}
+  ]},
+  B3:{q:"New feelings are exciting! What changed recently?",c:[
+    {t:"Nothing changed, I just don't know",n:"C4"},
+    {t:"He did something that made me think",n:"C3"},
+    {t:"I caught myself missing him 😶",n:"D4"},
+    {t:"I realised he makes everything better",n:"E1"}
+  ]},
+  B4:{q:"A few months of 'not knowing' — let's test that. You see his name on your phone, you feel...?",c:[
+    {t:"Nothing unusual",n:"C4"},
+    {t:"A little jump in my chest 🫀",n:"D4"},
+    {t:"Instant happiness. Every time.",n:"E1"},
+    {t:"I drop whatever I'm doing to reply 😂",n:"E1"}
+  ]},
+  C3:{q:"He did something that made you think. What kind of something? 👀",c:[
+    {t:"Something kind, nothing more",n:"D4"},
+    {t:"Something that showed he cares",n:"D4"},
+    {t:"Something that made me realise I care too",n:"E1"},
+    {t:"Something that wrecked me emotionally 😭",n:"result"}
+  ]},
+  C4:{q:"Okay, completely neutral. Would you date someone else right now easily?",c:[
+    {t:"Yes, I'm very open to that",n:"D5"},
+    {t:"Maybe, if the right person came",n:"D4"},
+    {t:"...it would feel weird, actually",n:"E1"},
+    {t:"No. And I know exactly why. 💀",n:"result"}
+  ]},
+  D4:{q:"Your heart jumped. You dropped everything. You'd feel weird dating someone else. So what IS this? 😂",c:[
+    {t:"Complicated friendship!!",n:"F1"},
+    {t:"Feelings I haven't confirmed yet",n:"F2"},
+    {t:"Confirmed feelings I haven't said yet",n:"F2"},
+    {t:"LOVE, okay, it's love 😩",n:"result"}
+  ]},
+  D5:{q:"Open to dating someone else — but would you tell Kelvin first? 👀",c:[
+    {t:"Why would I tell him??",n:"F1"},
+    {t:"I'd want to know his reaction first...",n:"F2"},
+    {t:"I'd want HIS approval specifically 😭",n:"F2"},
+    {t:"I could never date someone else honestly",n:"result"}
+  ]},
+
+  // PATH C - Why are you asking
+  A3:{q:"It's weird because... the answer is obvious? 😏",c:[
+    {t:"The answer is obviously no 😤",n:"B5"},
+    {t:"The answer is obviously yes 🫣",n:"result"},
+    {t:"I just don't like the question",n:"B6"},
+    {t:"Because YOU already know the answer 😭",n:"C5"}
+  ]},
+  B5:{q:"Obviously no — but you came here and started the quiz. For what reason exactly? 🤨",c:[
+    {t:"Someone sent me a link, okay?",n:"C5"},
+    {t:"I was curious what it would say",n:"C5"},
+    {t:"I wanted to see how long I could deny it 😂",n:"E1"},
+    {t:"I honestly don't know why I'm here 😭",n:"D6"}
+  ]},
+  B6:{q:"You don't like the question. Is it uncomfortable because it's too accurate?",c:[
+    {t:"No, it's just personal",n:"C5"},
+    {t:"Maybe a little accurate, fine",n:"D6"},
+    {t:"VERY accurate and I'm upset about it 😂",n:"E1"},
+    {t:"100% accurate and I deny everything",n:"F1"}
+  ]},
+  C5:{q:"Someone sent you a link to a quiz about whether you love a specific person. And you clicked it. Evaluate that. 😂",c:[
+    {t:"I just click things! It means nothing!",n:"D6"},
+    {t:"Okay it maybe means a small thing",n:"D6"},
+    {t:"It means I wanted confirmation 😶",n:"E1"},
+    {t:"It means I love him and I knew it 😭",n:"result"}
+  ]},
+  D6:{q:"Last stretch! If he asked you right now — 'do you love me?' — what would you actually say?",c:[
+    {t:"I'd say no confidently",n:"F1"},
+    {t:"I'd panic and change the subject 😂",n:"F1"},
+    {t:"I'd say 'maybe...' and look away 🫣",n:"F2"},
+    {t:"I'd say yes without thinking 💗",n:"result"}
+  ]},
+
+  // PATH D - Define love
+  A4:{q:"Define love. Okay — love is when you'd rather they were happy than you were comfortable. Does that match?",c:[
+    {t:"Not really, not for him",n:"B7"},
+    {t:"Hmm... maybe a little",n:"B8"},
+    {t:"...yes. Exactly that. For him. 🥺",n:"E1"},
+    {t:"I felt that in my chest and I hate it 😭",n:"E1"}
+  ]},
+  B7:{q:"Not for him. But if he was having a bad day, what would you do?",c:[
+    {t:"Nothing, not my problem",n:"C6"},
+    {t:"Check on him probably",n:"C6"},
+    {t:"Drop everything to make him feel better",n:"D7"},
+    {t:"I already know his bad days by how he texts 💀",n:"E1"}
+  ]},
+  B8:{q:"Maybe a little — okay. Do you celebrate his wins like they're your wins?",c:[
+    {t:"Not really",n:"C6"},
+    {t:"A little bit, yes",n:"D7"},
+    {t:"His win = my win, always 😭",n:"E1"},
+    {t:"I'm prouder of him than he is of himself 🥺",n:"result"}
+  ]},
+  C6:{q:"You'd check on him. You know his bad days. Be honest — is this a normal friendship or something more?",c:[
+    {t:"Normal friendship, very caring",n:"D7"},
+    {t:"It's on the border honestly",n:"D7"},
+    {t:"It crossed the border a while ago 😭",n:"E1"},
+    {t:"There is no friendship label big enough 💗",n:"result"}
+  ]},
+  D7:{q:"You're so close to saying it 🌹 One last thing — does he know how much he means to you?",c:[
+    {t:"I don't think I show it",n:"F2"},
+    {t:"I hope he feels it somehow",n:"F2"},
+    {t:"He should, I show it every day",n:"result"},
+    {t:"He doesn't. And I love him. There I said it.",n:"result"}
+  ]},
+
+  // FUNNEL NODES
+  F1:{q:"Strong friendship with jealousy, butterflies, missing them and memorising their habits. Friendship! Sure! 😂",c:[
+    {t:"STRONG friendship!!!! 😤",n:"G1"},
+    {t:"Okay maybe more than friendship",n:"G2"},
+    {t:"Fine, I surrender, it's love 💖",n:"result"}
+  ]},
+  F2:{q:"You're one word away. The word is four letters. Starts with L. 🌹",c:[
+    {t:"Like. The word is like.",n:"G1"},
+    {t:"...LOVE. It's love. Fine.",n:"result"},
+    {t:"Love. It's always been love. 💗",n:"result"}
+  ]},
+  G1:{q:"Final stop. No more questions after this. Deep breath. Does your heart say yes or no?",c:[
+    {t:"...Yes 💗",n:"result"},
+    {t:"YES, okay, YES 😭🌹",n:"result"},
+    {t:"It says yes. It always said yes.",n:"result"},
+    {t:"Y. E. S. For Kelvin. 💖",n:"result"}
+  ]},
+  G2:{q:"More than friendship. What do we call that? 🌸",c:[
+    {t:"A situationship 😂",n:"G1"},
+    {t:"Feelings. Big ones.",n:"result"},
+    {t:"Love. We call it love. Done.",n:"result"}
+  ]},
+
+  result:null
+};
+
+let history=[], stepCount=0;
+
+function render(id){
+  if(id==='result'){showResult();return;}
+  const node=nodes[id];
+  if(!node){showResult();return;}
+  stepCount++;history.push(id);
+  const trail=document.getElementById('trail');
+  trail.innerHTML='';
+  const dots=Math.min(history.length+4,16);
+  for(let i=0;i<dots;i++){
+    const d=document.createElement('div');
+    d.className='trail-dot'+(i<history.length-1?' done':i===history.length-1?' current':'');
+    trail.appendChild(d);
+  }
+  document.getElementById('stepTag').textContent=id==='start'?'The Big Question 💌':`Step ${stepCount} — Still running? 😂`;
+  document.getElementById('qText').innerHTML=node.q;
+  const box=document.getElementById('choices');
+  box.innerHTML='';
+  const letters=['A','B','C','D','E'];
+  node.c.forEach((ch,i)=>{
+    const btn=document.createElement('button');
+    btn.className='choice';
+    btn.innerHTML=`<span class="choice-letter">${letters[i]}</span>${ch.t}`;
+    btn.onclick=()=>{
+      const card=document.getElementById('card');
+      card.style.cssText='opacity:0;transform:translateX(-30px);transition:all .18s ease;';
+      setTimeout(()=>{
+        card.style.cssText='animation:cardIn .5s cubic-bezier(.175,.885,.32,1.275) both;';
+        render(ch.n);
+      },180);
+    };
+    box.appendChild(btn);
+  });
+}
+
+function showResult(){
+  const card=document.getElementById('card');
+  card.innerHTML=`
+    <div class="result-wrap">
+      <span class="result-emoji">🥰💖🌹</span>
+      <h2 class="result-title">Yes, <em>Evalyn</em> Loves<br>Kelvin Mwenda!</h2>
+      <p class="steps-count">You tried for ${stepCount} step${stepCount!==1?'s':''} and still ended up here 😂🌹</p>
+      <p class="result-msg">Every path, every denial, every "it's just friendship" — they all led to this moment. The heart doesn't lie, even when we try to silence it. 💗</p>
+      <div class="photo-frame">
+        <img src="${PHOTO}" alt="Kelvin and Evalyn 🌹"/>
+        <div class="photo-caption">Kelvin & Evalyn 💑 — The Answer Was Always Yes 🌹</div>
+      </div>
+      <div class="emoji-row">🌸💕🌹🥰💖🌺💗🌼💝🌷</div>
+      <div class="result-quote">"No flowchart in the world could change what the heart already chose. You love him, Evalyn — and this picture proves it was worth it." 🌹✨</div>
+      <button class="btn-retry" onclick="restart()">Try to escape again 😂🔁</button>
+    </div>
+  `;
+  card.style.animation='cardIn .7s cubic-bezier(.175,.885,.32,1.275) both';
+  startFlowers();confetti();
+}
+
+function restart(){
+  history=[];stepCount=0;
+  document.getElementById('card').innerHTML=`
+    <div class="trail" id="trail"></div>
+    <p class="step-tag" id="stepTag">Start Here 💌</p>
+    <div class="divider"></div>
+    <p class="q-text" id="qText"></p>
+    <div class="choices" id="choices"></div>
+  `;
+  render('start');
+}
+
+function startFlowers(){
+  const fl=['🌸','🌹','🌺','🌼','🌷','💐','🏵️','🌻','💮','🪷'];
+  let count=0;
+  const iv=setInterval(()=>{
+    if(count++>60){clearInterval(iv);return;}
+    const f=document.createElement('div');
+    f.className='flower';
+    f.textContent=fl[Math.floor(Math.random()*fl.length)];
+    f.style.cssText=`left:${Math.random()*100}vw;animation-duration:${3+Math.random()*5}s;animation-delay:${Math.random()*2}s;font-size:${18+Math.random()*20}px;`;
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),8000);
+  },120);
+}
+
+function confetti(){
+  const em=['💖','💗','💕','💝','💞','🥰','😍','💓','💘','💟'];
+  for(let i=0;i<60;i++){
+    const c=document.createElement('div');
+    c.className='conf';
+    c.textContent=em[i%em.length];
+    c.style.cssText=`font-size:${16+Math.random()*16}px;left:${Math.random()*100}vw;animation-delay:${Math.random()*2.5}s;animation-duration:${3+Math.random()*2}s;background:none;`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),6000);
+  }
+}
+
+function petal(){
+  const p=document.createElement('div');
+  p.className='petal';
+  p.style.cssText=`left:${Math.random()*100}vw;animation-duration:${5+Math.random()*7}s;animation-delay:${Math.random()*3}s;`;
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),13000);
+}
+setInterval(petal,600);
+render('start');
+</script>
+</body>
+</html>
